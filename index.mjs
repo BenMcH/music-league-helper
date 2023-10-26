@@ -1,4 +1,3 @@
-import fs from 'fs/promises'
 import {load} from 'cheerio'
 
 if (process.argv.length !== 3) {
@@ -31,4 +30,8 @@ const getInfo = async (url) => {
 	}
 }
 
-console.log(await Promise.all(urls.map(url => getInfo(url))))
+const data = await Promise.all(urls.map(url => getInfo(url)))
+
+const output = '* ' + data.map(info => `${info.title} - ${info.artist}`).join('\n* ')
+
+console.log(output);
